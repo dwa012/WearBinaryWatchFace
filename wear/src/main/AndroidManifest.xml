@@ -29,7 +29,9 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+
+                <!--I use this intent for debugging only-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
 
                 <category android:name="com.google.android.clockwork.home.category.HOME_BACKGROUND" />
             </intent-filter>
