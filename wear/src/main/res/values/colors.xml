@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="circle_active">#ffc5441d</color>
+    <color name="circle_inactive">#ff3a3a3a</color>
+
+    <color name="circle_dimmed_active">#ffc6c5c5</color>
+    <color name="circle_dimmed_inactive">#ff3a3a3a</color>
+
+</resources>

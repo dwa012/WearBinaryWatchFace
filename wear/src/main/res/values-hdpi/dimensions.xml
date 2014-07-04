@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="circle_width">15dp</dimen>
+    <dimen name="circle_margin">2dp</dimen>
+    <dimen name="group_height">80dp</dimen>
+</resources>
