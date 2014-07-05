@@ -32,9 +32,9 @@ public class TimeGroup {
         int color;
 
         if (isDimmed) {
-            color = getBrightColor(context, isOn);
-        } else {
             color = getDimmedColor(context, isOn);
+        } else {
+            color = getBrightColor(context, isOn);
         }
 
         background.setColor(color);

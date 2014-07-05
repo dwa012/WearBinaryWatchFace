@@ -11,6 +11,7 @@ import android.os.Looper;
 import android.support.wearable.view.WatchViewStub;
 import android.view.View;
 
+import com.bytemesoftware.wear.faces.binary.service.MyDaydreamService;
 import com.bytemesoftware.wear.faces.binary.time.Minutes;
 import com.bytemesoftware.wear.faces.binary.time.Hours;
 import com.bytemesoftware.wear.faces.binary.time.Seconds;
@@ -110,6 +111,7 @@ public class WatchFaceActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
+
         // When the face is paused, we are going to go into the dimmed state
         if (rootView != null) setDimmed();
     }
@@ -176,7 +178,7 @@ public class WatchFaceActivity extends Activity {
     }
 
     private void setBright() {
-        this.getSharedPreferences(Constants.PREFS, MODE_PRIVATE).edit().putBoolean(Constants.PREFS_DIMMED_KEY, true).commit();
+        this.getSharedPreferences(Constants.PREFS, MODE_PRIVATE).edit().putBoolean(Constants.PREFS_DIMMED_KEY, false).commit();
         updateCompleteTime();
 
         // start the seconds animation again
