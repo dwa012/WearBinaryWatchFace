@@ -30,6 +30,7 @@ public class TimeGroup {
         boolean isOn = (state == 1);
 
         int color;
+
         if (isDimmed) {
             color = getBrightColor(context, isOn);
         } else {
@@ -53,7 +54,13 @@ public class TimeGroup {
 
     private static int getDimmedColor(Context context, boolean isOn) {
         int defaultColor = context.getResources().getColor(R.color.circle_dimmed_active);
+        int result = context.getResources().getColor(R.color.circle_dimmed_inactive);
 
-        return defaultColor;
+        if (isOn) {
+//            result = context.getSharedPreferences(Constants.PREFS, Context.MODE_PRIVATE).getInt(Constants.PREFS_DOT_COLOR_KEY, defaultColor);
+            result = defaultColor;
+        }
+
+        return result;
     }
 }
