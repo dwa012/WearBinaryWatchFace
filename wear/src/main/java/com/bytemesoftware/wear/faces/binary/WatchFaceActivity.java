@@ -26,11 +26,14 @@ public class WatchFaceActivity extends Activity {
 
     private View rootView;
 
-    private IntentFilter filter;
-    private IntentFilter dotColorChangedIntentfilter;
+    private IntentFilter timeTickFilter;
+    private IntentFilter timeChangedFilter;
+    private IntentFilter timeZoneChnagedFilter;
+    private IntentFilter dotColorChangedIntentFilter;
 
     private BroadcastReceiver timeUpdateReceiver;
     private BroadcastReceiver dotColorChangedReceiver;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +60,9 @@ public class WatchFaceActivity extends Activity {
 
     private void initReceivers() {
         // create the intent filter for the time tick action
-        filter = new IntentFilter(Intent.ACTION_TIME_TICK);
+        timeTickFilter = new IntentFilter(Intent.ACTION_TIME_TICK);
+        timeChangedFilter = new IntentFilter(Intent.ACTION_TIME_CHANGED);
+        timeZoneChnagedFilter = new IntentFilter(Intent.ACTION_TIMEZONE_CHANGED);
 
         // create the reciever
         timeUpdateReceiver = new BroadcastReceiver() {
@@ -75,7 +80,7 @@ public class WatchFaceActivity extends Activity {
         };
 
         // create the intent filter for the time tick action
-        dotColorChangedIntentfilter = new IntentFilter(Constants.DOT_COLOR_RECIEVED_ACTION);
+        dotColorChangedIntentFilter = new IntentFilter(Constants.DOT_COLOR_RECIEVED_ACTION);
 
         // create the receiver
         dotColorChangedReceiver = new BroadcastReceiver() {
@@ -94,8 +99,10 @@ public class WatchFaceActivity extends Activity {
         super.onStart();
 
         // attach the time receiver to listen for time ticks.
-        this.registerReceiver(timeUpdateReceiver, filter);
-        this.registerReceiver(dotColorChangedReceiver, dotColorChangedIntentfilter);
+        this.registerReceiver(timeUpdateReceiver, timeTickFilter);
+        this.registerReceiver(timeUpdateReceiver, timeChangedFilter);
+        this.registerReceiver(timeUpdateReceiver, timeZoneChnagedFilter);
+        this.registerReceiver(dotColorChangedReceiver, dotColorChangedIntentFilter);
     }
 
     @Override
