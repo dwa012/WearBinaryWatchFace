@@ -9,9 +9,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.wearable.view.WatchViewStub;
+import android.util.Log;
 import android.view.View;
 
-import com.bytemesoftware.wear.faces.binary.service.MyDaydreamService;
 import com.bytemesoftware.wear.faces.binary.time.Minutes;
 import com.bytemesoftware.wear.faces.binary.time.Hours;
 import com.bytemesoftware.wear.faces.binary.time.Seconds;
@@ -21,8 +21,6 @@ import java.util.Calendar;
 public class WatchFaceActivity extends Activity {
 
     private int TICK_INTERVAL = 950;
-
-
 
     private Handler mHandler;
 
@@ -66,8 +64,12 @@ public class WatchFaceActivity extends Activity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (Intent.ACTION_TIME_TICK.equals(intent.getAction())) {
-                    startRepeatingTask();
                     updateCompleteTime();
+
+                    // if we are not dimmed, then restart the seconds animation
+                    if (!isDimmed()) {
+                        restartRepeatingTask();
+                    }
                 }
             }
         };
@@ -75,13 +77,13 @@ public class WatchFaceActivity extends Activity {
         // create the intent filter for the time tick action
         dotColorChangedIntentfilter = new IntentFilter(Constants.DOT_COLOR_RECIEVED_ACTION);
 
-        // create the reciever
+        // create the receiver
         dotColorChangedReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (Constants.DOT_COLOR_RECIEVED_ACTION.equals(intent.getAction())) {
-                    startRepeatingTask();
                     updateCompleteTime();
+                    startRepeatingTask();
                 }
             }
         };
@@ -139,7 +141,10 @@ public class WatchFaceActivity extends Activity {
         Minutes.updateViewWithTime(view, calendar);
         Hours.updateViewWithTime(view, calendar);
 
-        Seconds.updateViewWithTime(view, calendar);
+        // if we are not dimmed, then update the seconds dots
+        if (!isDimmed()) {
+            Seconds.updateViewWithTime(view, calendar);
+        }
     }
 
     private void updateSeconds() {
@@ -179,6 +184,7 @@ public class WatchFaceActivity extends Activity {
 
     private void setBright() {
         this.getSharedPreferences(Constants.PREFS, MODE_PRIVATE).edit().putBoolean(Constants.PREFS_DIMMED_KEY, false).commit();
+
         updateCompleteTime();
 
         // start the seconds animation again
@@ -193,24 +199,48 @@ public class WatchFaceActivity extends Activity {
     // CODE FOR THE SECONDS ANIMATION
     //========================================================================
 
-    Runnable mStatusChecker = new Runnable() {
-        @Override
-        public void run() {
-            mHandler.postDelayed(mStatusChecker, TICK_INTERVAL);
-            updateSeconds(); //this function can change value of mInterval.
-
-        }
-    };
-
     private void startRepeatingTask() {
         // make sure that there is not a task running
         // before starting a new task
-        mHandler.removeCallbacks(mStatusChecker);
-        mStatusChecker.run();
+        mHandler.post(secondsAnimation);
     }
 
     private void stopRepeatingTask() {
-        mHandler.removeCallbacks(mStatusChecker);
+        mHandler.removeCallbacksAndMessages(null);
     }
+
+    private void restartRepeatingTask() {
+        // make sure that there is not a task running
+        // before starting a new task
+        stopRepeatingTask();
+        startRepeatingTask();
+    }
+
+    private  void updateSecondsUI() {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                try {
+                    updateSeconds();
+                } catch (Exception e) {
+                    // left blank
+                }
+            }
+        });
+    }
+
+    private Runnable secondsAnimation = new  Runnable() {
+        // @Override
+        public void run() {
+            if (!Thread.currentThread().isInterrupted()) {
+                try {
+                    updateSecondsUI();
+                    mHandler.postDelayed(secondsAnimation, TICK_INTERVAL);
+                } catch (Exception e) {
+                    Log.e("log_tag", "Error is " + e.toString());
+                }
+            }
+
+        }
+    };
 
 }
