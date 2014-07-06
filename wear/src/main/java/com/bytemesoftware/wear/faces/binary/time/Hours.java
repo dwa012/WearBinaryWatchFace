@@ -25,21 +25,21 @@ public class Hours extends TimeGroup {
     };
 
     public static void updateViewWithTime(View view, Calendar time) {
-        int currentMinute;
+        int currentHour;
 
         if (DateFormat.is24HourFormat(view.getContext())) {
-            currentMinute = time.get(Calendar.HOUR_OF_DAY);
+            currentHour = time.get(Calendar.HOUR_OF_DAY);
         } else {
-            currentMinute = time.get(Calendar.HOUR);
+            currentHour = time.get(Calendar.HOUR);
 
             // when on 12 hour time, 12 o'clock is 0, we need to adjust for that
-            if (currentMinute == 0) {
-                currentMinute = 12;
+            if (currentHour == 0) {
+                currentHour = 12;
             }
         }
 
-        int columnOneComponent = currentMinute / 10;
-        int columnTwoComponent = currentMinute % 10;
+        int columnOneComponent = currentHour / 10;
+        int columnTwoComponent = currentHour % 10;
 
         updateView(column1, columnOneComponent, view);
         updateView(column2, columnTwoComponent, view);
