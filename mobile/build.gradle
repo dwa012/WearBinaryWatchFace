@@ -2,14 +2,18 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "20"
+    buildToolsVersion "20.0.0"
+
+    aaptOptions {
+        noCompress "apk"
+    }
 
     defaultConfig {
         applicationId "com.bytemesoftware.wear.faces.binary"
         minSdkVersion 14
         targetSdkVersion 19
-        versionCode 2
-        versionName "1.1"
+        versionCode 9
+        versionName "1.1.6"
     }
 
     signingConfigs {
@@ -24,7 +28,6 @@ android {
     buildTypes {
         release {
             runProguard false
-            zipAlign true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -33,7 +36,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    wearApp project(':wear')
     compile 'com.google.android.gms:play-services-wearable:+'
     compile 'com.larswerkman:HoloColorPicker:1.4'
+    wearApp project(':wear')
 }
