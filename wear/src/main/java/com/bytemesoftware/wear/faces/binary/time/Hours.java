@@ -31,8 +31,12 @@ public class Hours extends TimeGroup {
             currentMinute = time.get(Calendar.HOUR_OF_DAY);
         } else {
             currentMinute = time.get(Calendar.HOUR);
-        }
 
+            // when on 12 hour time, 12 o'clock is 0, we need to adjust for that
+            if (currentMinute == 0) {
+                currentMinute = 12;
+            }
+        }
 
         int columnOneComponent = currentMinute / 10;
         int columnTwoComponent = currentMinute % 10;
