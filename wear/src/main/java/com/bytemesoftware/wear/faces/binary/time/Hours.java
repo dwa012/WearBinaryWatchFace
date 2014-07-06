@@ -27,6 +27,7 @@ public class Hours extends TimeGroup {
     public static void updateViewWithTime(View view, Calendar time) {
         int currentHour;
 
+        // check for 14 hour time
         if (DateFormat.is24HourFormat(view.getContext())) {
             currentHour = time.get(Calendar.HOUR_OF_DAY);
         } else {
