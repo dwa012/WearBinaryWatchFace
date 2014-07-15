@@ -20,7 +20,7 @@
         <activity
             android:name=".WatchFaceActivity"
             android:allowEmbedded="true"
-            android:theme="@android:style/Theme.DeviceDefault.NoActionBar"
+            android:theme="@android:style/Theme.DeviceDefault"
             android:label="@string/preview_name">
 
             <meta-data
