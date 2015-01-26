@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size">18sp</dimen>
+    <dimen name="digital_y_offset">50dp</dimen>
+    <dimen name="digital_y_square_extra_offset">10dp</dimen>
+</resources>

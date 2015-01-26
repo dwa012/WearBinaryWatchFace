@@ -2,15 +2,15 @@ apply plugin: 'com.android.application'
 
 
 android {
-    compileSdkVersion 20
-    buildToolsVersion "20.0.0"
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
         applicationId "com.bytemesoftware.wear.faces.binary"
-        minSdkVersion 20
-        targetSdkVersion 20
-        versionCode 9
-        versionName "1.1.6"
+        minSdkVersion 21
+        targetSdkVersion 21
+        versionCode 20
+        versionName "2.0"
     }
 
     signingConfigs {
@@ -24,7 +24,7 @@ android {
 
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -32,8 +32,9 @@ android {
 }
 
 dependencies {
-    compile 'com.google.android.support:wearable:+'
-    compile 'com.google.android.gms:play-services-wearable:+'
+    compile 'com.google.android.gms:play-services-wearable:6.5.+'
+    compile 'com.android.support:support-v13:21.0.+'
+    compile 'com.google.android.support:wearable:1.1.+'
     compile fileTree(dir: 'libs', include: ['*.jar'])
-
+    compile project(':library')
 }

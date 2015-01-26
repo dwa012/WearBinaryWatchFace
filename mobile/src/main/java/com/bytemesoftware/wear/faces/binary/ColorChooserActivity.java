@@ -7,13 +7,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.bytemesoftware.library.CommonConstants;
 import com.bytemesoftware.wear.faces.binary.R;
 import com.larswerkman.holocolorpicker.ColorPicker;
 import com.larswerkman.holocolorpicker.SVBar;
 
 public class ColorChooserActivity extends Activity {
 
-    private SVBar svBar;
     private ColorPicker picker;
     private WearConnection connection;
 
@@ -33,7 +33,7 @@ public class ColorChooserActivity extends Activity {
             @Override
             public void onClick(View v) {
                 setOldColor(picker.getColor());
-                connection.sendColor("/dot_color", picker.getColor());
+                connection.sendColor(CommonConstants.DATA_PATH_DOT_COLOR, picker.getColor());
             }
         });
     }

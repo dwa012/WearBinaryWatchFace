@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.bytemesoftware.library.CommonConstants;
+
 
 public class MainActivity extends Activity {
 
@@ -28,7 +30,7 @@ public class MainActivity extends Activity {
         findViewById(R.id.resetDotButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                connection.sendColor(WearConnection.DOT_COLOR_RESET_PATH, 0);
+                connection.sendColor(CommonConstants.DATA_PATH_DOT_COLOR_RESET, 0);
             }
         });
 

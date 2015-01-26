@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">library</string>
+    <string name="pref_key_dot_color">dot_color</string>
+    <string name="pref_key_background_color">background_color</string>
+    <string name="pref_key_change_layout">change_layout</string>
+    <string name="pref_key_show_digital_time">show_clock</string>
+</resources>
